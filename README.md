@@ -1,6 +1,4 @@
 
-A real-world data pipeline to process and analyze IoT sensor data from farms, helping optimize irrigation and resource usage.
-
 # 🌿 Smart Farming Analytics – A Data Engineering & Analytics Project
 
 A data-focused project that simulates and analyzes farm sensor data to derive insights for smarter irrigation decisions — combining time-series analysis, data pipeline design, and visualization.
