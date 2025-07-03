@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/3afb938c-66aa-4c33-9266-10f255a2a7ef)# smart_farming_analytics
+
 A real-world data pipeline to process and analyze IoT sensor data from farms, helping optimize irrigation and resource usage.
 
 # 🌿 Smart Farming Analytics – A Data Engineering & Analytics Project
