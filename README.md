@@ -29,7 +29,9 @@ The goal of this project is to simulate a smart farm environment and build an en
 
 ## 🧩 Planned Modules
 
-![image](https://github.com/user-attachments/assets/6de3b84b-3bf8-43f8-a807-08ada877f1ad)
+![image](https://github.com/user-attachments/assets/d3440bfc-2749-4ab1-a4ba-3bf49476dd91)
+
+
 
 
 
