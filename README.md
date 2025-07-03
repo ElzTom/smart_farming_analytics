@@ -28,12 +28,7 @@ The goal of this project is to simulate a smart farm environment and build an en
 ---
 
 ## 🧩 Planned Modules
-** Module                       	           Description                                               	      Status**     
- Sensor Data Simulator 	              Generate synthetic time-series sensor data                	
-Data Ingestion Pipeline	              Load and preprocess data using Pandas                        	     ⏳ Planned 
-Data Storage Layer	                 Store structured data (CSV or SQLite for MVP)                	     ⏳ Planned 
-Analytics Engine	                   Perform soil moisture trend analysis, detect irrigation needs  	   ⏳ Planned 
-Visualization & Dashboard	           Generate reports/graphs and optionally build a Streamlit UI   	     ⏳ Planned 
+
 ![image](https://github.com/user-attachments/assets/6de3b84b-3bf8-43f8-a807-08ada877f1ad)
 
 
