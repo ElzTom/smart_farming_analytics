@@ -59,4 +59,5 @@ In this project, I chose to use simulated IoT sensor data rather than real farm 
 -Skill Focus: The goal of this project is to demonstrate my ability to build scalable, end-to-end data pipelines, perform data transformations, and create actionable dashboards. These skills are equally applicable whether data is real or simulated.
 
 -Scalability: The architecture and code developed here can easily ingest and process real sensor data in future iterations, making the solution adaptable and future-proof.
+
 ---
