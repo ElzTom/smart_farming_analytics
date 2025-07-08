@@ -47,6 +47,8 @@ The goal of this project is to simulate a smart farm environment and build an en
 - **SQLite or CSV** – lightweight structured storage
 - *(Optional later)* **scikit-learn** – basic prediction
 
+---
+## 🔧 About the Data
 - About the Data: Why Simulated Sensor Data?
 In this project, I chose to use simulated IoT sensor data rather than real farm sensors for several reasons:
 
@@ -57,3 +59,4 @@ Control & Flexibility: Simulated data lets me generate diverse scenarios — inc
 Skill Focus: The goal of this project is to demonstrate my ability to build scalable, end-to-end data pipelines, perform data transformations, and create actionable dashboards. These skills are equally applicable whether data is real or simulated.
 
 Scalability: The architecture and code developed here can easily ingest and process real sensor data in future iterations, making the solution adaptable and future-proof.
+---
