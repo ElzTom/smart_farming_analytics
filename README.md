@@ -48,15 +48,15 @@ The goal of this project is to simulate a smart farm environment and build an en
 - *(Optional later)* **scikit-learn** – basic prediction
 
 ---
-## 🔧 About the Data
-- About the Data: Why Simulated Sensor Data?
+## 🔧 About the Data :: Why Simulated Sensor Data?
+
 In this project, I chose to use simulated IoT sensor data rather than real farm sensors for several reasons:
 
-Accessibility: Real farm sensor data is often proprietary or requires physical hardware that’s costly and difficult to access as an individual learner. Simulating data allows me to proceed independently and focus on core data engineering skills.
+-Accessibility: Real farm sensor data is often proprietary or requires physical hardware that’s costly and difficult to access as an individual learner. Simulating data allows me to proceed independently and focus on core data engineering skills.
 
-Control & Flexibility: Simulated data lets me generate diverse scenarios — including rare events, seasonal patterns, and data gaps — that are essential for testing robust pipelines and alerting logic.
+-Control & Flexibility: Simulated data lets me generate diverse scenarios — including rare events, seasonal patterns, and data gaps — that are essential for testing robust pipelines and alerting logic.
 
-Skill Focus: The goal of this project is to demonstrate my ability to build scalable, end-to-end data pipelines, perform data transformations, and create actionable dashboards. These skills are equally applicable whether data is real or simulated.
+-Skill Focus: The goal of this project is to demonstrate my ability to build scalable, end-to-end data pipelines, perform data transformations, and create actionable dashboards. These skills are equally applicable whether data is real or simulated.
 
-Scalability: The architecture and code developed here can easily ingest and process real sensor data in future iterations, making the solution adaptable and future-proof.
+-Scalability: The architecture and code developed here can easily ingest and process real sensor data in future iterations, making the solution adaptable and future-proof.
 ---
