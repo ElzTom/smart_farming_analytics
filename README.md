@@ -48,7 +48,7 @@ The goal of this project is to simulate a smart farm environment and build an en
 - *(Optional later)* **scikit-learn** – basic prediction
 
 ---
-## 🔧 About the Data :: Why Simulated Sensor Data?
+## About the Data :: Why Simulated Sensor Data?
 
 In this project, I chose to use simulated IoT sensor data rather than real farm sensors for several reasons:
 
