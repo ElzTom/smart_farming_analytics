@@ -1,7 +1,7 @@
 
 # 🌿 Smart Farming Analytics – A Data Engineering & Analytics Project
 
-A data-focused project that simulates and analyzes farm sensor data to derive insights for smarter irrigation decisions — combining time-series analysis, data pipeline design, and visualization.
+A data-focused project that collects and analyzes farm sensor data from an publically available API to derive insights for smarter irrigation decisions — combining time-series analysis, data pipeline design, and visualization.
 
 ---
 
@@ -9,7 +9,7 @@ A data-focused project that simulates and analyzes farm sensor data to derive in
 
 The goal of this project is to simulate a smart farm environment and build an end-to-end data analytics pipeline to:
 
-- Collect (simulate) real-time agricultural sensor data (e.g., soil moisture, temperature)
+- Collect real-time agricultural sensor data (e.g., soil moisture, soil temperature, soil salinity, Location meta data)
 - Store and manage structured data efficiently
 - Analyze patterns in time-series data to detect water stress
 - Generate irrigation recommendations based on rule-based logic or simple predictive models
