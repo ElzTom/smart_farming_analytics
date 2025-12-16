@@ -80,6 +80,6 @@ Pipeline Orchestration: Automate workflows with Apache Airflow or Prefect free t
 
 
 ---
-## About the Data :: Why Simulated Sensor Data?
+## About the Data ?
 
 The dataset contains historical soil sensor readings (updated hourly) collected from public parks across the City of Melbourne. Sensors capture multiple environmental metrics like soil moisture, temperature, and salinity at varying depths. While the data originates from an urban setting, it was repurposed to mimic agricultural conditions for demonstrating data engineering and analytics capabilities.
