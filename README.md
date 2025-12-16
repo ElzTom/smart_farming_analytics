@@ -32,9 +32,22 @@ Enterprise-Ready Tools: Kafka, Snowflake, Delta Lake/HDFS, Airflow.
 ---
 
 ## 🧩 Planned Modules
+Data Ingestion: Simulated real-time sensor streaming via Kafka or Python batch scripts.
 
+Data Storage: Raw & processed layers in DuckDB, SQLite, or PostgreSQL with Parquet support.
 
-![image](https://github.com/user-attachments/assets/8a7ef0be-4dc5-4fc6-b484-0f7cfc08071b)
+Data Processing: ETL pipelines using PySpark (local mode) and Pandas for cleaning, aggregation, and feature engineering.
+
+Analytics & Recommendations:
+
+Time-series analysis and anomaly detection.
+
+Rule-based irrigation triggers and optional predictive forecasting (scikit-learn / Prophet).
+
+Visualization & Reporting: Interactive dashboards with Streamlit or Plotly; trend analysis and anomaly highlights.
+
+Pipeline Orchestration: Automate workflows with Apache Airflow or Prefect free tier.
+
 
 
 
