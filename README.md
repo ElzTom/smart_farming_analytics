@@ -19,11 +19,15 @@ The goal of this project is to simulate a smart farm environment and build an en
 
 ## 💡 What This Project Demonstrates
 
-- Data engineering fundamentals: structured data pipelines, transformations, storage
-- Time-series analytics and anomaly detection
-- Use of Python-based analytics stack (Pandas, NumPy, matplotlib)
-- Dashboarding or reporting (Streamlit or Jupyter)
-- Real-world context in agri-tech / environmental analytics
+Data Engineering Fundamentals: Streaming & batch data pipelines, ETL orchestration, structured storage.
+
+Time-Series Analytics & Anomaly Detection: Detect soil moisture anomalies, track trends over time.
+
+Modern Analytics Stack: Python (Pandas, NumPy), PySpark, scikit-learn (optional predictive modeling).
+
+Dashboarding & Reporting: Streamlit or Power BI for clear, visual insights.
+
+Enterprise-Ready Tools: Kafka, Snowflake, Delta Lake/HDFS, Airflow.
 
 ---
 
@@ -39,6 +43,7 @@ The goal of this project is to simulate a smart farm environment and build an en
 
 ## 🔧 Tech Stack
 
+
 - **Python 3.11+**
 - **Pandas** – data wrangling
 - **NumPy** – numerical ops
@@ -46,6 +51,20 @@ The goal of this project is to simulate a smart farm environment and build an en
 - **Streamlit** – optional dashboard
 - **SQLite or CSV** – lightweight structured storage
 - *(Optional later)* **scikit-learn** – basic prediction
+
+
+
+| Layer              | Tools (Free / Community Versions)                    | Notes                                                     |
+| ------------------ | ---------------------------------------------------- | --------------------------------------------------------- |
+| **Data Ingestion** | Apache Kafka (open-source), Python scripts           | Simulate real-time sensor streaming locally.              |
+| **Storage**        | DuckDB / SQLite / PostgreSQL                         | Lightweight, query-friendly, Parquet support.             |
+| **Processing**     | PySpark (local mode), Python (Pandas/NumPy)          | Run locally; demonstrates ETL and large-scale processing. |
+| **Orchestration**  | Apache Airflow (open-source), Prefect (free tier)    | Automate pipelines; show DAGs locally.                    |
+| **Analytics & ML** | scikit-learn, statsmodels, Prophet                   | Rule-based and predictive irrigation recommendations.     |
+| **Visualization**  | Streamlit (free), matplotlib, seaborn, Plotly (free) | Interactive dashboards and trend charts.                  |
+
+
+
 
 ---
 ## About the Data :: Why Simulated Sensor Data?
