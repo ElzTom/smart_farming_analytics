@@ -21,7 +21,7 @@ def fetch_site_metadata(api_url, limit=100):
         else:
             print(f"Request failed ({response.status_code}). Retrying ({retries + 1})...")
             retries += 1
-    print("❌ Failed to fetch site metadata after max retries.")
+    print(" Failed to fetch site metadata after max retries.")
     return []
 
 
@@ -47,15 +47,15 @@ def insert_sites(conn, sites):
 def main():
     conn = sqlite3.connect(DB_FILE)
 
-    print("📥 Fetching site metadata...")
+    print(" Fetching site metadata...")
     sites = fetch_site_metadata(SITE_API_URL, limit=BATCH_SIZE)
 
     if sites:
-        print(f"✅ {len(sites)} site metadata records fetched.")
+        print(f" {len(sites)} site metadata records fetched.")
         insert_sites(conn, sites)
-        print(f"✅ {len(sites)} site records inserted into database.")
+        print(f" {len(sites)} site records inserted into database.")
     else:
-        print("⚠️ No site metadata found to insert.")
+        print(" No site metadata found to insert.")
 
     conn.close()
 

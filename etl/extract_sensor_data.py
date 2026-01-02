@@ -78,7 +78,7 @@ def main():
         time.sleep(0.5)  # Be gentle to the API
 
     conn.close()
-    print(f"\n✅ Completed! Inserted {total_inserted} records into {DB_FILE}")
+    print(f"\n Completed! Inserted {total_inserted} records into {DB_FILE}")
 
 
 if __name__ == "__main__":
