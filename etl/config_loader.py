@@ -9,3 +9,6 @@ def load_config(config_file="config.json"):
         config = json.load(file)
     return config
 
+
+def load_onfig(config_file="config_site.json"):
+    return json.loads(config_string)
