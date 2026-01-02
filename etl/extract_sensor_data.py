@@ -14,15 +14,15 @@ MAX_RETRIES = config["api"]["max_retries"]
 TIMEZONE = config["api"]["timezone"]
 
 
-def fetch_sensor_data(limit, offset=0):
+def fetch_sensor_data(limit, offset=0):  #start with offset 0,  records to skip
     params = {
-        "limit": limit,
-        "offset": offset,
+        "limit": limit,                # Number of records to fetch API restriction
+        "offset": offset,              # Pagination support
         "order_by": "local_time asc",
         "timezone": TIMEZONE
     }
     retries = 0
-    while retries < MAX_RETRIES:
+    while retries < MAX_RETRIES:    # ensuring reliable data extraction even if the API is temporarily down.
         response = requests.get(SENSOR_API_URL, params=params)
         if response.status_code == 200:
             return response.json().get("results", [])
@@ -30,7 +30,7 @@ def fetch_sensor_data(limit, offset=0):
             print(f"Request failed ({response.status_code}). Retrying ({retries + 1})...")
             retries += 1
             time.sleep(2)
-    print("❌ Failed after max retries.")
+    print(" Failed after max retries.")
     return []
 
 
@@ -41,7 +41,7 @@ def insert_sensor_data(conn, records):
                 conn.execute('''
                     INSERT OR IGNORE INTO raw_soil_data 
                     (id, local_time, site_name, site_id, probe_id, probe_measure, soil_value, unit, json_featuretype)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)    # ? to prevent SQL injection.
                 ''', (
                     rec.get("id"),
                     rec.get("local_time"),
@@ -54,7 +54,7 @@ def insert_sensor_data(conn, records):
                     rec.get("json_featuretype")
                 ))
             except Exception as e:
-                print(f"Error inserting record {rec.get('id')}: {e}")
+                print(f"Error inserting record {rec.get('id')}: {e}")         # Log error but continue
 
 
 def main():
@@ -69,7 +69,7 @@ def main():
 
         insert_sensor_data(conn, batch)
         total_inserted += len(batch)
-        print(f"📥 Inserted {total_inserted} records so far...")
+        print(f" Inserted {total_inserted} records so far...")
 
         if len(batch) < BATCH_SIZE:
             break  # No more records
