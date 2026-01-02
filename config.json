@@ -1,0 +1,27 @@
+{
+    "api": {
+        "sensor_data_url": "https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/soil-sensor-readings-historical-data/records",
+        "site_metadata_url": "https://melbournetestbed.opendatasoft.com/api/explore/v2.1/catalog/datasets/soil-sensor-locations/records",
+        "batch_size": 100,
+        "max_retries": 3,
+        "timezone": "Australia/Sydney"
+    },
+    "database": {
+        "db_file": "data/soil_sensor_data.db"
+    },
+    "thresholds": {
+        "soil_moisture_irrigate": 30,
+        "temperature_min": -10,
+        "temperature_max": 60,
+        "moisture_min": 0,
+        "moisture_max": 100,
+        "salinity_min": 0,
+        "salinity_max": 10
+    },
+    "logging": {
+        "log_file": "logs/etl.log"
+    },
+    "scheduler": {
+        "interval_hours": 1
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "api": {
+        
+        "site_metadata_url": "https://melbournetestbed.opendatasoft.com/api/explore/v2.1/catalog/datasets/soil-sensor-locations/records",
+        "batch_size": 100,
+        "max_retries": 3,
+        "timezone": "Australia/Sydney"
+    },
+    "database": {
+        "db_file": "data/soil_site_data.db"
+    },
+    
+    "logging": {
+        "log_file": "logs/etl.log"
+    },
+    "scheduler": {
+        "interval_hours":744
+    }
+}
+
