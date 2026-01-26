@@ -1,0 +1,7 @@
+2026-01-25 16:19:47,491 [INFO] ===== ETL RUN STARTED =====
+2026-01-25 16:19:47,492 [INFO] DB_FILE = C:\Users\eliza\smart_farming_analytics\data\soil_sensor_data.db
+2026-01-25 16:19:47,492 [INFO] LOG_FILE = C:\Users\eliza\smart_farming_analytics\logs\etl_20260125_161947.log
+2026-01-25 16:19:48,129 [INFO] Last timestamp in DB: 2026-01-02 11:00:00+00:00
+2026-01-25 16:19:48,129 [INFO] Fetching from: 2026-01-02 10:58:00+00:00
+2026-01-25 16:19:48,135 [WARNING] API attempt 1 failed: HTTPSConnectionPool(host='data.melbourne.vic.gov.au', port=443): Max retries exceeded with url: /api/explore/v2.1/catalog/datasets/soil-sensor-readings-historical-data/records?limit=100&order_by=local_time+asc&where=local_time+%3E%3D+%272026-01-02T10%3A58%3A00%2B00%3A00%27 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000016C16587E00>: Failed to resolve 'data.melbourne.vic.gov.au' ([Errno 11001] getaddrinfo failed)"))
+2026-01-25 17:09:29,472 [WARNING] API attempt 2 failed: HTTPSConnectionPool(host='data.melbourne.vic.gov.au', port=443): Max retries exceeded with url: /api/explore/v2.1/catalog/datasets/soil-sensor-readings-historical-data/records?limit=100&order_by=local_time+asc&where=local_time+%3E%3D+%272026-01-02T10%3A58%3A00%2B00%3A00%27 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000016C1667C190>: Failed to resolve 'data.melbourne.vic.gov.au' ([Errno 11001] getaddrinfo failed)"))
