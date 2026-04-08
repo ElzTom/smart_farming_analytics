@@ -1,3 +1,0 @@
-2026-01-25 09:14:57,640 [INFO] ===== ETL RUN STARTED =====
-2026-01-25 09:14:57,641 [INFO] DB_FILE = C:\Users\eliza\smart_farming_analytics\data\soil_sensor_data.db
-2026-01-25 09:14:57,641 [INFO] LOG_FILE = C:\Users\eliza\smart_farming_analytics\logs\etl_20260125_091457.log

@@ -1,19 +1,27 @@
-# Python virtual environment
+# Python virtual environments
 .venv/
+venv/
+.venv-linux/
 
 # Python cache
 __pycache__/
 *.pyc
+*.pyo
 
 # Spark / Java
 *.jar
 jars/
 
-# Data / databases
-data/
+# Data — raw files, bronze/silver/gold layers (too large for git)
+data/raw/
+data/bronze/
+data/silver/
+data/gold/
 *.db
-*.csv
 *.parquet
+
+# Logs
+logs/
 
 # IDE
 .vscode/
@@ -21,3 +29,4 @@ data/
 
 # OS
 .DS_Store
+Thumbs.db

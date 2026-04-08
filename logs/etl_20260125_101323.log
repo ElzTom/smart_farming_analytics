@@ -1,7 +1,0 @@
-2026-01-25 10:13:23,259 [INFO] ===== ETL RUN STARTED =====
-2026-01-25 10:13:23,260 [INFO] DB_FILE = C:\Users\eliza\smart_farming_analytics\data\soil_sensor_data.db
-2026-01-25 10:13:23,260 [INFO] LOG_FILE = C:\Users\eliza\smart_farming_analytics\logs\etl_20260125_101323.log
-2026-01-25 10:13:24,062 [INFO] Last timestamp in DB: 2026-01-02 11:00:00+00:00
-2026-01-25 10:13:24,062 [INFO] Fetching from: 2026-01-02 10:58:00+00:00
-2026-01-25 10:13:24,267 [INFO] Rows inserted: 0
-2026-01-25 10:13:24,267 [INFO] ===== ETL RUN COMPLETED =====
