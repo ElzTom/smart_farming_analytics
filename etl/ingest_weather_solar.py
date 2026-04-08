@@ -1,64 +1,66 @@
-import sqlite3
-import csv
 import os
+import sys
 
-# SQLite DB file (keep all weather data together)
-DB_FILE = "data/weather_data.db"
+from pyspark.sql import SparkSession
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType
+from pyspark.sql.functions import col, current_timestamp, to_date, lpad, concat_ws
 
-# CSV file path for solar
-CSV_FILE = r"C:\Users\eliza\OneDrive\Desktop\Smart Farming Datasets\Weather dataset\Solar\IDCJAC0016_086338_1800_Data.csv"
+BASE_DIR    = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+CSV_FILE    = os.path.join(BASE_DIR, "data", "raw", "weather", "solar", "IDCJAC0016_086338_1800_Data.csv")
+BRONZE_PATH = os.path.join(BASE_DIR, "data", "bronze", "weather_solar")
 
-def sanitize(value):
-    """Clean data to store in SQLite."""
-    if value is None or value == "":
-        return None
-    return value.strip() if isinstance(value, str) else value
+SCHEMA = StructType([
+    StructField("product_code",      StringType(),  True),
+    StructField("station_number",    StringType(),  True),
+    StructField("year",              IntegerType(), True),
+    StructField("month",             IntegerType(), True),
+    StructField("day",               IntegerType(), True),
+    StructField("solar_exposure_mj", DoubleType(),  True),
+])
 
-def create_table(conn):
-    """Create solar table if it doesn't exist."""
-    conn.execute('''
-        CREATE TABLE IF NOT EXISTS solar (
-            station_number TEXT,
-            year INTEGER,
-            month INTEGER,
-            day INTEGER,
-            solar_exposure REAL,
-            PRIMARY KEY (station_number, year, month, day)
+def get_spark():
+    os.environ["PYSPARK_PYTHON"] = sys.executable
+    os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
+    spark = (
+        SparkSession.builder
+        .appName("Weather-Solar-Bronze-Ingest")
+        .master("local[1]")
+        .config("spark.sql.shuffle.partitions", "1")
+        .getOrCreate()
+    )
+    spark.sparkContext.setLogLevel("ERROR")
+    return spark
+
+def ingest():
+    spark = get_spark()
+
+    df = (
+        spark.read
+        .schema(SCHEMA)
+        .option("header", True)
+        .csv(CSV_FILE)
+    )
+
+    df = (
+        df
+        .withColumn(
+            "date",
+            to_date(
+                concat_ws("-", col("year"), lpad(col("month"), 2, "0"), lpad(col("day"), 2, "0")),
+                "yyyy-MM-dd"
+            )
         )
-    ''')
+        .withColumn("ingested_at", current_timestamp())
+        .filter(col("date").isNotNull())
+        .coalesce(1)
+    )
 
-def ingest_csv(conn, csv_file):
-    """Read CSV and insert into SQLite."""
-    with open(csv_file, newline='', encoding='utf-8-sig') as f:
-        reader = csv.DictReader(f)
-        inserted = 0
-        for row in reader:
-            try:
-                conn.execute('''
-                    INSERT OR IGNORE INTO solar
-                    (station_number, year, month, day, solar_exposure)
-                    VALUES (?, ?, ?, ?, ?)
-                ''', (
-                    sanitize(row.get("Bureau of Meteorology station number")),
-                    int(row.get("Year")),
-                    int(row.get("Month")),
-                    int(row.get("Day")),
-                    float(row.get("Daily global solar exposure (MJ/m*m)")) if row.get("Daily global solar exposure (MJ/m*m)") else None
-                ))
-                inserted += 1
-            except Exception as e:
-                print(f"Error inserting row {row}: {e}")
-        print(f"\nInserted {inserted} rows from CSV.")
+    print(f"[INFO] Writing {df.count()} records to bronze")
 
-def main():
-    os.makedirs(os.path.dirname(DB_FILE), exist_ok=True)
+    df.write.mode("overwrite").parquet(BRONZE_PATH)
 
-    conn = sqlite3.connect(DB_FILE)
-    create_table(conn)
-    ingest_csv(conn, CSV_FILE)
-    conn.commit()
-    conn.close()
-    print("Solar ingestion complete!")
+    spark.stop()
+    print("✅ Weather solar bronze ingest SUCCESS")
 
 if __name__ == "__main__":
-    main()
+    ingest()
