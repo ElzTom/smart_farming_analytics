@@ -18,17 +18,8 @@ IRRIGATE_THRESHOLD = config["thresholds"]["soil_moisture_irrigate"]  # 30
 
 
 def get_spark():
-    os.environ["PYSPARK_PYTHON"] = sys.executable
-    os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
-    spark = (
-        SparkSession.builder
-        .appName("Soil-Gold-Daily")
-        .master("local[*]")
-        .config("spark.sql.shuffle.partitions", "4")
-        .getOrCreate()
-    )
-    spark.sparkContext.setLogLevel("ERROR")
-    return spark
+    from etl.spark_utils import get_spark as _get_spark
+    return _get_spark("Soil-Gold-Daily")
 
 
 def pivot_measure(df, measure, value_col_prefix):

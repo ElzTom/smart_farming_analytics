@@ -18,17 +18,8 @@ thresholds = config["thresholds"]
 
 
 def get_spark():
-    os.environ["PYSPARK_PYTHON"] = sys.executable
-    os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
-    spark = (
-        SparkSession.builder
-        .appName("Soil-Silver-Transform")
-        .master("local[*]")
-        .config("spark.sql.shuffle.partitions", "4")
-        .getOrCreate()
-    )
-    spark.sparkContext.setLogLevel("ERROR")
-    return spark
+    from etl.spark_utils import get_spark as _get_spark
+    return _get_spark("Soil-Silver-Transform")
 
 
 def transform():

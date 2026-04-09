@@ -19,17 +19,8 @@ SCHEMA = StructType([
 ])
 
 def get_spark():
-    os.environ["PYSPARK_PYTHON"] = sys.executable
-    os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
-    spark = (
-        SparkSession.builder
-        .appName("Weather-Solar-Bronze-Ingest")
-        .master("local[1]")
-        .config("spark.sql.shuffle.partitions", "1")
-        .getOrCreate()
-    )
-    spark.sparkContext.setLogLevel("ERROR")
-    return spark
+    from etl.spark_utils import get_spark as _get_spark
+    return _get_spark("Weather-Solar-Bronze-Ingest")
 
 def ingest():
     spark = get_spark()

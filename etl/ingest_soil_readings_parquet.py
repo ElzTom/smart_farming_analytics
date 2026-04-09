@@ -9,24 +9,8 @@ PARQUET_FILE  = os.path.join(BASE_DIR, "data", "raw", "soil-sensor-readings-hist
 BRONZE_PATH   = os.path.join(BASE_DIR, "data", "bronze", "soil_readings")
 
 def get_spark():
-    os.environ["PYSPARK_PYTHON"] = sys.executable
-    os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
-
-    if sys.platform == "win32":
-        jdk17 = r"C:\Program Files\Eclipse Adoptium\jdk-17.0.17.10-hotspot"
-        os.environ["JAVA_HOME"] = jdk17
-        os.environ["HADOOP_HOME"] = r"C:\hadoop"
-        os.environ["PATH"] = jdk17 + r"\bin;" + r"C:\hadoop\bin;" + os.environ["PATH"]
-
-    spark = (
-        SparkSession.builder
-        .appName("Soil-Bronze-Parquet-Ingest")
-        .master("local[1]")
-        .config("spark.sql.shuffle.partitions", "1")
-        .getOrCreate()
-    )
-    spark.sparkContext.setLogLevel("ERROR")
-    return spark
+    from etl.spark_utils import get_spark as _get_spark
+    return _get_spark("Soil-Bronze-Parquet-Ingest")
 
 def ingest():
     spark = get_spark()
