@@ -13,6 +13,7 @@ x-airflow-common: &airflow-common
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
     AIRFLOW__WEBSERVER__SECRET_KEY: 'smart_farming_secret'
     PYTHONPATH: /opt/airflow/project
+    SMART_FARMING_DB_URL: 'postgresql+psycopg2://farming:farming123@smart-farming-db:5432/smart_farming'
   volumes:
     - /home/eliza/smart_farming_analytics/dags:/opt/airflow/dags
     - /home/eliza/smart_farming_analytics/logs:/opt/airflow/logs
@@ -80,6 +81,11 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
+    depends_on:
+      airflow-db:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
 
   # -------------------------------------------------------
   # Airflow scheduler — triggers DAG runs
@@ -87,6 +93,11 @@ services:
   airflow-scheduler:
     <<: *airflow-common
     command: scheduler
+    depends_on:
+      airflow-db:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
 
 volumes:
   airflow_db_data:

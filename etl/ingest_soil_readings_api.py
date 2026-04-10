@@ -21,8 +21,8 @@ BATCH_SIZE = config["api"]["batch_size"]
 MAX_RETRIES = config["api"]["max_retries"]
 TIMEZONE   = config["api"]["timezone"]
 
-# How many days per time chunk — keeps each chunk well under 10k row API limit
-CHUNK_DAYS = 1
+# Chunk size in hours — keeps each chunk well under 10k row API limit
+CHUNK_HOURS = 12
 # Overlap window to catch late-arriving data
 SLIDING_WINDOW_MINUTES = 2
 
@@ -84,11 +84,11 @@ def get_last_timestamp(spark):
 # TIME CHUNKS — split date range into CHUNK_DAYS windows
 # ==========================================================
 def build_time_chunks(start_dt, end_dt):
-    """Split [start_dt, end_dt] into CHUNK_DAYS-sized windows."""
+    """Split [start_dt, end_dt] into CHUNK_HOURS-sized windows."""
     chunks = []
     chunk_start = start_dt
     while chunk_start < end_dt:
-        chunk_end = min(chunk_start + timedelta(days=CHUNK_DAYS), end_dt)
+        chunk_end = min(chunk_start + timedelta(hours=CHUNK_HOURS), end_dt)
         chunks.append((chunk_start, chunk_end))
         chunk_start = chunk_end
     return chunks
@@ -163,7 +163,7 @@ def ingest():
     end_dt = datetime.now()
 
     print(f"[INFO] Last bronze timestamp: {last_ts}")
-    print(f"[INFO] Fetching from {start_dt} to {end_dt} in {CHUNK_DAYS}-day chunks")
+    print(f"[INFO] Fetching from {start_dt} to {end_dt} in {CHUNK_HOURS}-hour chunks")
 
     chunks = build_time_chunks(start_dt, end_dt)
     print(f"[INFO] Total chunks: {len(chunks)}")
