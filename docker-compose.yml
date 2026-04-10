@@ -99,6 +99,24 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
+  # -------------------------------------------------------
+  # Grafana — dashboards at http://localhost:3000
+  # -------------------------------------------------------
+  grafana:
+    image: grafana/grafana:11.0.0
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED: 'false'
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      smart-farming-db:
+        condition: service_healthy
+
 volumes:
   airflow_db_data:
   smart_farming_data:
+  grafana_data:
