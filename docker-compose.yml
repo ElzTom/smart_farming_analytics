@@ -14,9 +14,9 @@ x-airflow-common: &airflow-common
     AIRFLOW__WEBSERVER__SECRET_KEY: 'smart_farming_secret'
     PYTHONPATH: /opt/airflow/project
   volumes:
-    - ./dags:/opt/airflow/dags
-    - ./logs:/opt/airflow/logs
-    - .:/opt/airflow/project
+    - /home/eliza/smart_farming_analytics/dags:/opt/airflow/dags
+    - /home/eliza/smart_farming_analytics/logs:/opt/airflow/logs
+    - /home/eliza/smart_farming_analytics:/opt/airflow/project
   depends_on:
     airflow-db:
       condition: service_healthy
