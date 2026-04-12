@@ -1,85 +1,98 @@
+# Smart Farming Analytics
 
-# 🌿 Smart Farming Analytics – A Data Engineering & Analytics Project
-
-A data-focused project that collects and analyzes farm sensor data from an publically available API to derive insights for smarter irrigation decisions — combining time-series analysis, data pipeline design, and visualization.
-
----
-
-## 📌 Project Objective
-
-The goal of this project is to simulate a smart farm environment and build an end-to-end data analytics pipeline to:
-
-- Collect real-time agricultural sensor data (e.g., soil moisture, soil temperature, soil salinity, Location meta data)
-- Store and manage structured data efficiently
-- Analyze patterns in time-series data to detect water stress
-- Generate irrigation recommendations based on rule-based logic or simple predictive models
-- Present insights in a clear, visual dashboard/report
+An end-to-end data engineering project that ingests IoT soil sensor data from a public API, processes it through a medallion pipeline, and surfaces irrigation insights in a live dashboard.
 
 ---
 
-## 💡 What This Project Demonstrates
+## What This Project Does
 
-Data Engineering Fundamentals: Streaming & batch data pipelines, ETL orchestration, structured storage.
+Pulls soil moisture, temperature, and salinity readings from the City of Melbourne's public sensor API (70+ park sites), runs them through a Bronze → Silver → Gold pipeline, loads the results into PostgreSQL, and displays irrigation recommendations in Grafana.
 
-Time-Series Analytics & Anomaly Detection: Detect soil moisture anomalies, track trends over time.
-
-Modern Analytics Stack: Python (Pandas, NumPy), PySpark, scikit-learn (optional predictive modeling).
-
-Dashboarding & Reporting: Streamlit or Power BI for clear, visual insights.
-
-Enterprise-Ready Tools: Kafka, Snowflake, Delta Lake/HDFS, Airflow.
+The pipeline runs automatically on a daily schedule via Apache Airflow. When the API publishes new data, everything updates without manual intervention.
 
 ---
 
-## 🧩 Planned Modules
-Data Ingestion: Simulated real-time sensor streaming via Kafka or Python batch scripts.
+## Architecture
 
-Data Storage: Raw & processed layers in DuckDB, SQLite, or PostgreSQL with Parquet support.
-
-Data Processing: ETL pipelines using PySpark (local mode) and Pandas for cleaning, aggregation, and feature engineering.
-
-Analytics & Recommendations:
-
-Time-series analysis and anomaly detection.
-
-Rule-based irrigation triggers and optional predictive forecasting (scikit-learn / Prophet).
-
-Visualization & Reporting: Interactive dashboards with Streamlit or Plotly; trend analysis and anomaly highlights.
-
-Pipeline Orchestration: Automate workflows with Apache Airflow or Prefect free tier.
-
-
-
-
-
-
-
-## 🔧 Tech Stack
-
-
-- **Python 3.11+**
-- **Pandas** – data wrangling
-- **NumPy** – numerical ops
-- **matplotlib / seaborn** – visualizations
-- **Streamlit** – optional dashboard
-- **SQLite or CSV** – lightweight structured storage
-- *(Optional later)* **scikit-learn** – basic prediction
-
-
-
-| Layer              | Tools (Free / Community Versions)                    | Notes                                                     |
-| ------------------ | ---------------------------------------------------- | --------------------------------------------------------- |
-| **Data Ingestion** | Apache Kafka (open-source), Python scripts           | Simulate real-time sensor streaming locally.              |
-| **Storage**        | DuckDB / SQLite / PostgreSQL                         | Lightweight, query-friendly, Parquet support.             |
-| **Processing**     | PySpark (local mode), Python (Pandas/NumPy)          | Run locally; demonstrates ETL and large-scale processing. |
-| **Orchestration**  | Apache Airflow (open-source), Prefect (free tier)    | Automate pipelines; show DAGs locally.                    |
-| **Analytics & ML** | scikit-learn, statsmodels, Prophet                   | Rule-based and predictive irrigation recommendations.     |
-| **Visualization**  | Streamlit (free), matplotlib, seaborn, Plotly (free) | Interactive dashboards and trend charts.                  |
-
-
-
+```
+Melbourne Sensor API
+        |
+        v
+   Bronze Layer        Raw Parquet files (ingested as-is)
+        |
+        v
+   Silver Layer        Cleaned, typed, deduplicated
+        |
+        v
+    Gold Layer         Daily site summaries + irrigation flags
+        |
+        v
+   PostgreSQL          Queryable gold tables
+        |
+        v
+    Grafana            Live dashboard
+```
 
 ---
-## About the Data ?
 
-The dataset contains historical soil sensor readings (updated hourly) collected from public parks across the City of Melbourne. Sensors capture multiple environmental metrics like soil moisture, temperature, and salinity at varying depths. While the data originates from an urban setting, it was repurposed to mimic agricultural conditions for demonstrating data engineering and analytics capabilities.
+## Tech Stack
+
+| Layer | Tool |
+|---|---|
+| Orchestration | Apache Airflow (Docker, LocalExecutor) |
+| Processing | PySpark (local mode) |
+| Storage | Parquet (bronze/silver/gold) + PostgreSQL |
+| Containerisation | Docker Compose |
+| Dashboard | Grafana |
+| Language | Python 3.12 |
+
+---
+
+## Key Outputs
+
+**daily_site_summary** — one row per site per day:
+- Soil moisture by depth (10cm–80cm)
+- Shallow and deep average moisture
+- Soil temperature and salinity
+- Weather join (rainfall, max temp, solar exposure)
+- `irrigation_needed` flag: shallow moisture < 30% AND rainfall < 2mm
+
+**hourly_site_summary** — same metrics at hourly grain for trend analysis.
+
+---
+
+## Dashboard
+
+Grafana at `http://localhost:3000`:
+- **Irrigation Status** — table of all sites for the latest date, ordered by driest soil first, color-coded by irrigation need
+- **Soil Moisture Trend** — time series of the 5 driest sites with a threshold line at 30%
+
+---
+
+## Running Locally
+
+**Requirements:** Docker Desktop, WSL2
+
+```bash
+# Start the full stack
+docker compose up -d
+
+# Airflow UI
+http://localhost:8080  (admin / admin)
+
+# Grafana
+http://localhost:3000  (admin / admin)
+
+# Trigger pipeline manually
+# Go to Airflow UI → smart_farming_pipeline → trigger
+```
+
+The DAG runs automatically at 6am daily.
+
+---
+
+## About the Data
+
+Soil sensor readings from public parks across the City of Melbourne. Sensors record moisture, temperature, and salinity at depths of 10cm–80cm. Data is available via the City of Melbourne Open Data API and was used here to demonstrate a production-style data engineering pipeline.
+
+Data covers mid-2024 to early 2026.
