@@ -114,7 +114,7 @@ def transform():
     )
 
     spark.stop()
-    print("✅ Soil silver transform SUCCESS")
+    print("Soil silver transform SUCCESS")
 
 
 if __name__ == "__main__":

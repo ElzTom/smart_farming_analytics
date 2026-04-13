@@ -51,7 +51,7 @@ def ingest():
     df.write.mode("overwrite").parquet(BRONZE_PATH)
 
     spark.stop()
-    print("✅ Weather solar bronze ingest SUCCESS")
+    print("Weather solar bronze ingest SUCCESS")
 
 if __name__ == "__main__":
     ingest()

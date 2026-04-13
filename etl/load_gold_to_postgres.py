@@ -71,7 +71,7 @@ def load():
     load_table(dsn, DAILY_PATH,  "daily_site_summary")
     load_table(dsn, HOURLY_PATH, "hourly_site_summary")
 
-    print("✅ Gold tables loaded to PostgreSQL")
+    print("Gold tables loaded to PostgreSQL")
 
 
 if __name__ == "__main__":

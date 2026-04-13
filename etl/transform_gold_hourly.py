@@ -97,7 +97,7 @@ def transform():
     df.write.mode("overwrite").parquet(GOLD_PATH)
 
     spark.stop()
-    print("✅ Gold hourly transform SUCCESS")
+    print("Gold hourly transform SUCCESS")
 
 
 if __name__ == "__main__":

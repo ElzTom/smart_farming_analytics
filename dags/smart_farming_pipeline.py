@@ -51,6 +51,11 @@ with DAG(
         bash_command=f"cd {PROJ} && {PYTHON} -m etl.transform_silver_weather",
     )
 
+    validate_silver = BashOperator(
+        task_id="validate_silver",
+        bash_command=f"cd {PROJ} && {PYTHON} -m etl.validate_silver",
+    )
+
     gold_daily = BashOperator(
         task_id="transform_gold_daily",
         bash_command=f"cd {PROJ} && {PYTHON} -m etl.transform_gold_daily",
@@ -74,9 +79,12 @@ with DAG(
     ingest_soil >> silver_soil
     [ingest_weather_rainfall, ingest_weather_temperature, ingest_weather_solar] >> silver_weather
 
-    # Gold waits for both silver layers
-    [silver_soil, silver_weather] >> gold_daily
-    silver_soil >> gold_hourly
+    # Validate silver soil before proceeding to gold
+    silver_soil >> validate_silver
+
+    # Gold waits for validation + silver weather
+    [validate_silver, silver_weather] >> gold_daily
+    validate_silver >> gold_hourly
 
     # Load to Postgres after both gold tables are ready
     [gold_daily, gold_hourly] >> load_postgres

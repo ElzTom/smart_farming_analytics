@@ -40,7 +40,7 @@ def transform():
     df.write.mode("overwrite").parquet(SILVER_PATH)
 
     spark.stop()
-    print("✅ Weather silver transform SUCCESS")
+    print("Weather silver transform SUCCESS")
 
 
 if __name__ == "__main__":

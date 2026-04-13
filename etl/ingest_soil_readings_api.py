@@ -218,7 +218,7 @@ def ingest():
     )
 
     spark.stop()
-    print("✅ Bronze API ingest SUCCESS")
+    print("Bronze API ingest SUCCESS")
 
 # ==========================================================
 if __name__ == "__main__":
